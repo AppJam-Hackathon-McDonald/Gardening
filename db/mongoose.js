@@ -8,7 +8,7 @@ mongoose
   .then(() => {
     console.log("connected to database!");
   })
-  .catch(e => {
+  .catch((e) => {
     console.log(e);
   });
 
@@ -32,4 +32,4 @@ const run = async () => {
   await garden.save();
 };
 
-run();
+// run();
