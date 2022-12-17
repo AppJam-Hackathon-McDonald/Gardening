@@ -70,9 +70,9 @@ router.post("/garden/:id/writer/letter", async (req, res) => {
   try {
     const garden = await Garden.findOne({ _id });
     garden.letters.push({
-      whoFrom: req.body.whoFrom,
-      flowerType: req.body.flowerType,
-      context: req.body.context,
+      whoFrom: req.body.letters[0].whoFrom,
+      flowerType: req.body.letters[0].flowerType,
+      context: req.body.letters[0].context,
     });
     await garden.save();
     res.json({ garden });
