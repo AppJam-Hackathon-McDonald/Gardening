@@ -55,6 +55,23 @@ router.get("/garden/:id/owner", async (req, res) => {
   }
 });
 
+router.post("/garden/:id/writer/letter", async (req, res) => {
+  // find garden userName
+  const _id = mongoose.Types.ObjectId(req.params.id);
+  try {
+    const garden = await Garden.findOne({ _id });
+    garden.letters.push({
+      whoFrom: req.body.whoFrom,
+      flowerType: req.body.flowerType,
+      context: req.body.context,
+    });
+    await garden.save();
+    res.json({ garden });
+  } catch (e) {
+    console.log(e);
+  }
+});
+
 router.get("*", (req, res) => {
   // send all data
   res.sendFile(path.join(__dirname, "../../Client/build/index.html"));
