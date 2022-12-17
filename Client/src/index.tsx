@@ -9,6 +9,7 @@ import MainPage from "./components/main";
 import SignUpPage from "./components/signup";
 import GardenOwnerPage from "./components/garden/shareGarden";
 import GardenSharePage from "./components/gardenOwner";
+import WriteMessage from "./components/writeMessage";
 
 function App() {
   const queryClient = new QueryClient();
@@ -24,6 +25,10 @@ function App() {
               <Route path="/signup" element={<SignUpPage />} />
               <Route path="/garden/:id/owner" element={<GardenOwnerPage />} />
               <Route path="/garden/:id" element={<GardenSharePage />} />
+              <Route
+                path="/garden/:id/write/letter"
+                element={<WriteMessage />}
+              />
             </Routes>
           </Background>
         </BrowserRouter>
