@@ -77,8 +77,8 @@ router.post("/gerden/:id/password", async (req, res) => {
   const _id = mongoose.Types.ObjectId(req.params.id);
   const password = req.body.password;
   try {
-    if (req.body.password === password) {
-      const garden = await Garden.findOne({ _id });
+    const garden = await Garden.findOne({ _id });
+    if (garden.password === password) {
       const result = garden;
       res.json({ result });
     } else {
