@@ -7,6 +7,7 @@ require("dotenv").config();
 const router = express.Router();
 
 router.post("/register", async (req, res) => {
+  // create garden
   const garden = new Garden({
     userName: req.body.userName,
     password: req.body.password,
@@ -26,6 +27,7 @@ router.post("/register", async (req, res) => {
 });
 
 router.get("/garden/:id", async (req, res) => {
+  // find garden userName and letters
   const _id = mongoose.Types.ObjectId(req.params.id);
   try {
     const garden = await Garden.findOne({ _id });
@@ -39,8 +41,18 @@ router.get("/garden/:id", async (req, res) => {
   }
 });
 
-router.get("/:id", async (req, res) => {
-  //
+router.get("/garden/:id/owner", async (req, res) => {
+  // find garden userName
+  const _id = mongoose.Types.ObjectId(req.params.id);
+  try {
+    const garden = await Garden.findOne({ _id });
+    const result = {
+      userName: garden.userName,
+    };
+    res.json({ result });
+  } catch (e) {
+    console.log(e);
+  }
 });
 
 router.get("*", (req, res) => {
