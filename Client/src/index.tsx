@@ -7,9 +7,10 @@ import { QueryClientProvider, QueryClient } from "react-query";
 import { RecoilRoot, useRecoilState } from "recoil";
 import MainPage from "./components/main";
 import SignUpPage from "./components/signup";
-import GardenOwnerPage from "./components/garden/shareGarden";
-import GardenSharePage from "./components/gardenOwner";
+import GardenOwnerPage from "./components/gardenOwner";
+import GardenSharePage from "./components/shareGarden";
 import WriteMessage from "./components/writeMessage";
+import ChooseFlower from "./components/chooseFlower";
 
 function App() {
   const queryClient = new QueryClient();
@@ -25,6 +26,7 @@ function App() {
               <Route path="/register" element={<SignUpPage />} />
               <Route path="/garden/:id/owner" element={<GardenOwnerPage />} />
               <Route path="/garden/:id" element={<GardenSharePage />} />
+              <Route path="/garden/:id/write" element={<ChooseFlower />} />
               <Route
                 path="/garden/:id/write/letter"
                 element={<WriteMessage />}

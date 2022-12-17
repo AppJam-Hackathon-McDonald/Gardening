@@ -1,17 +1,24 @@
 import styled from "styled-components";
+import { flower } from "../../assets/constants/flower";
 
-function Read() {
+interface Props {
+  flower: string;
+  name: string;
+  context: string;
+  onClose: () => void;
+}
+
+function Read(props: Props) {
+  const curflower = flower[props.flower];
   return (
     <Background>
       <Container>
         <p>from</p>
-        <h1>나무</h1>
-        <h2>동경</h2>
-        <h3>해바라기</h3>
-        <h4>🌻</h4>
-        <h5>
-          asdfjklahsdlfkjahsldkfjhaslkdfhklasdjfhlkasdhflkashdfklahsdfkasdf
-        </h5>
+        <h1>{props.name}</h1>
+        <h2>{curflower.mean}</h2>
+        <h3>{curflower.name}</h3>
+        <h4>{curflower.icon}</h4>
+        <h5>{props.context}</h5>
         <div>
           <div />
           <div />
@@ -25,7 +32,7 @@ function Read() {
           <div />
           <div />
         </div>
-        <Button>확인</Button>
+        <Button onClick={props.onClose}>확인</Button>
       </Container>
     </Background>
   );
