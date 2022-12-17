@@ -3,6 +3,7 @@ const axios = require("axios");
 const Garden = require("../models/garden");
 const mongoose = require("mongoose");
 const path = require("path");
+const { route } = require("../server");
 require("dotenv").config();
 const router = express.Router();
 
@@ -23,6 +24,11 @@ router.post("/register", async (req, res) => {
   } catch (e) {
     console.log(e);
   }
+});
+
+router.get("/garden/:id", async (req, res) => {
+  const id = mongoose.Types.ObjectId(req.params.id);
+  console.log();
 });
 
 router.get("/:id", async (req, res) => {
