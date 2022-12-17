@@ -8,6 +8,8 @@ import { RecoilRoot, useRecoilState } from "recoil";
 import MainPage from "./components/main";
 import SignUpPage from "./components/signup";
 import GardenPage from "./components/garden";
+import BasketRouter from "./basketRouter";
+import GardenOwnerPage from "./components/gardenOwner";
 
 function App() {
   const queryClient = new QueryClient();
@@ -19,9 +21,11 @@ function App() {
         <BrowserRouter>
           <Background>
             <Routes>
-              <Route path="/" element={<MainPage />} />
-              <Route path="/signup" element={<SignUpPage />} />
-              <Route path="/garden/:id" element={<GardenPage />} />
+              <Route path="" element={<MainPage />} />
+              <Route path="signup" element={<SignUpPage />} />
+              <Route path="garden" element={<BasketRouter />} />
+              <Route path="garden/:id" element={<GardenPage />} />
+              <Route path="garden/:id/owner" element={<GardenOwnerPage />} />
             </Routes>
           </Background>
         </BrowserRouter>
