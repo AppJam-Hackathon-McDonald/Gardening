@@ -1,0 +1,47 @@
+{
+  "name": "bmw",
+  "version": "1.0.0",
+  "description": "Banner Making Website",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack-dev-server --mode=development --hot --progress",
+    "build": "webpack --mode=production  --progress",
+    "start": "webpack --mode=development  --progress"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "file-loader": "^6.2.0",
+    "ts-loader": "^9.4.1",
+    "typescript": "^4.8.3",
+    "webpack-cli": "^4.10.0"
+  },
+  "dependencies": {
+    "@babel/core": "^7.19.1",
+    "@babel/preset-env": "^7.19.1",
+    "@babel/preset-react": "^7.18.6",
+    "@babel/preset-typescript": "^7.18.6",
+    "@types/react": "^18.0.21",
+    "@types/react-dom": "^18.0.6",
+    "@types/react-outside-click-handler": "^1.3.1",
+    "@types/react-query": "^1.2.9",
+    "@types/react-router-dom": "^5.3.3",
+    "@types/recoil": "^0.0.9",
+    "@types/styled-components": "^5.1.26",
+    "@types/typescript": "^2.0.0",
+    "axios": "^1.1.3",
+    "babel-loader": "^8.2.5",
+    "dotenv": "^16.0.3",
+    "gapi-script": "^1.2.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-outside-click-handler": "^1.3.0",
+    "react-query": "^3.39.2",
+    "react-router-dom": "^6.4.2",
+    "react-scripts": "^5.0.1",
+    "recoil": "^0.7.6",
+    "styled-components": "^5.3.5",
+    "webpack": "^5.74.0",
+    "webpack-dev-server": "^4.11.1"
+  }
+}
