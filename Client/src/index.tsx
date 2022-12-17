@@ -22,7 +22,7 @@ function App() {
           <Background>
             <Routes>
               <Route path="/" element={<MainPage />} />
-              <Route path="/signup" element={<SignUpPage />} />
+              <Route path="/register" element={<SignUpPage />} />
               <Route path="/garden/:id/owner" element={<GardenOwnerPage />} />
               <Route path="/garden/:id" element={<GardenSharePage />} />
               <Route

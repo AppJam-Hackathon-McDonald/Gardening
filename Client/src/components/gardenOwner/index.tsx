@@ -1,24 +1,28 @@
 import styled from "styled-components";
 import { Green, Black, Gray } from "../../../styles/theme";
 import { SangChew, LeftArrow, RightArrow } from "../../assets/images";
+import Read from "../read/index";
 
 export default function GardenSharePage() {
   return (
-    <Wrapper>
-      <Title>
-        <HighlightsText>룸메</HighlightsText>
-        님의 <br />
-        정원
-      </Title>
-      <Garden>
-        <Arrow src={LeftArrow} />
-        <GardenImg src={SangChew} />
-        <Arrow src={RightArrow} />
-      </Garden>
-      <PageNums>2/3</PageNums>
-      <LinkBtn>링크 복사</LinkBtn>
-      <LinkText>내 정원 보러가기 </LinkText>
-    </Wrapper>
+    <>
+      <Read />
+      <Wrapper>
+        <Title>
+          <HighlightsText>룸메</HighlightsText>
+          님의 <br />
+          정원
+        </Title>
+        <Garden>
+          <Arrow src={LeftArrow} />
+          <GardenImg src={SangChew} />
+          <Arrow src={RightArrow} />
+        </Garden>
+        <PageNums>2/3</PageNums>
+        <LinkBtn>링크 복사</LinkBtn>
+        <LinkText>내 정원 보러가기 </LinkText>
+      </Wrapper>
+    </>
   );
 }
 
