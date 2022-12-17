@@ -13,13 +13,13 @@ router.post("/register", async (req, res) => {
     userName: req.body.userName,
     password: req.body.password,
     letters: [],
-    cookie: date,
+    // cookie: date,
   });
   try {
     await garden.save();
     const id = mongoose.Types.ObjectId(garden.id);
     // create cookie
-    res.cookie("isMine", date, { maxAge: 259200000 });
+    // res.cookie("isMine", date, { maxAge: 259200000 });
     res.json({
       result: {
         id,
@@ -47,14 +47,14 @@ router.get("/garden/:id", async (req, res) => {
 
 router.get("/garden/:id/owner", async (req, res) => {
   // get cookie
-  const cookie = req.cookies.isMine;
+  // const cookie = req.cookies.isMine;
   // find garden userName
   const _id = mongoose.Types.ObjectId(req.params.id);
   try {
     const garden = await Garden.findOne({ _id });
-    if (cookie !== garden.cookie) {
-      return res.json({ status: "access denied!" });
-    }
+    // if (cookie !== garden.cookie) {
+    //   return res.json({ status: "access denied!" });
+    // }
     const result = {
       userName: garden.userName,
     };
@@ -88,9 +88,9 @@ router.post("/gerden/:id/password", async (req, res) => {
   try {
     const garden = await Garden.findOne({ _id });
     if (garden.password === password) {
-      const date = Date.now();
-      garden.cookie = date;
-      await garden.save();
+      // const date = Date.now();
+      // garden.cookie = date;
+      // await garden.save();
       const result = garden;
       res.json({ result });
     } else {

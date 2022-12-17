@@ -26,9 +26,9 @@ const gardenSchema = new mongoose.Schema(
         },
       },
     ],
-    cookie: {
-      type: Number,
-    },
+    // cookie: {
+    //   type: Number,
+    // },
   },
   {
     timestamps: true,
