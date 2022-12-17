@@ -1,7 +1,9 @@
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Img_Logo } from "../../assets/images";
 
 function MainPage() {
+  const navigate = useNavigate();
   return (
     <TotalWrapper>
       <TitleWrapper>
@@ -15,7 +17,7 @@ function MainPage() {
         <br />
         꽃말이 담긴 편지를 받을 수 있을 거예요!
       </Info>
-      <Button>정원 만들기</Button>
+      <Button onClick={() => navigate("/register")}>정원 만들기</Button>
     </TotalWrapper>
   );
 }
