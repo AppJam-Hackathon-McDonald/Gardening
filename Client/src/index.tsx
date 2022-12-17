@@ -6,6 +6,7 @@ import theme from "../styles/theme";
 import { QueryClientProvider, QueryClient } from "react-query";
 import { RecoilRoot, useRecoilState } from "recoil";
 import MainPage from "./components/main";
+import SignUpPage from "./components/signup";
 
 function App() {
   const queryClient = new QueryClient();
@@ -18,6 +19,7 @@ function App() {
           <Background>
             <Routes>
               <Route path="/" element={<MainPage />} />
+              <Route path="/signup" element={<SignUpPage />} />
             </Routes>
           </Background>
         </BrowserRouter>
