@@ -1,8 +1,10 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Green, Black, Gray } from "../../../styles/theme";
-import { getName } from "../../../utils/request";
+import { getName, shareGardenInfo } from "../../../utils/request";
+import { nametoflower } from "../../assets/constants/flower";
 import { SangChew, LeftArrow, RightArrow } from "../../assets/images";
 import Read from "../read/index";
 
@@ -25,8 +27,47 @@ export default function GardenOwnerPage() {
         console.log("Something went wrong", err);
       });
   };
+  const [toggle, setToggle] = useState(false);
+  const [name, setName] = useState("");
+  const [letters, setLetter] = useState([]);
+  const {
+    data,
+    isLoading: isLoad,
+    refetch,
+  } = useQuery(["getUserData"], () => shareGardenInfo(id), {
+    refetchOnWindowFocus: true,
+    staleTime: 0,
+    cacheTime: 0,
+    refetchInterval: 0,
+  });
+  const navigate = useNavigate();
+  const [curData, setCurData] = useState({
+    flower: "",
+    name: "",
+    context: "",
+  });
+
+  useEffect(() => {
+    if (data) {
+      setName(data.userName);
+      setLetter(data.letters);
+      console.log(data.letters);
+    }
+  }, [isLoad]);
+
+  useEffect(() => {
+    refetch();
+  }, [data]);
   return (
     <>
+      {toggle && (
+        <Read
+          {...curData}
+          onClose={() => {
+            setToggle(false);
+          }}
+        />
+      )}
       <Wrapper>
         <Title>
           <HighlightsText>{userName}</HighlightsText>
@@ -34,11 +75,26 @@ export default function GardenOwnerPage() {
           정원
         </Title>
         <Garden>
-          <Arrow src={LeftArrow} />
+          <FlowerWrapper>
+            {letters.map((value) => (
+              <Flower
+                canClick
+                onClick={() => {
+                  setToggle(true);
+                  setCurData({
+                    context: value.context,
+                    flower: value.flowerType,
+                    name: value.whoFrom,
+                  });
+                }}
+                context={value.context}
+                flower={nametoflower[value.flowerType]}
+                from={value.whoFrom}
+              />
+            ))}
+          </FlowerWrapper>
           <GardenImg src={SangChew} />
-          <Arrow src={RightArrow} />
         </Garden>
-        <PageNums>2/3</PageNums>
         <LinkText>
           친구들에게 링크를 공유하고
           <br /> 편지를 써달라고 요청하세요! <br />
@@ -51,6 +107,51 @@ export default function GardenOwnerPage() {
     </>
   );
 }
+
+interface FlowerProps {
+  from: string;
+  flower: string;
+  context: string;
+  onClick: () => void;
+  canClick?: boolean;
+}
+
+function Flower({ canClick = false, ...props }: FlowerProps) {
+  return (
+    <FlowerContainer onClick={canClick && props.onClick}>
+      <h1>{props.flower}</h1>
+      <p>{props.from}</p>
+    </FlowerContainer>
+  );
+}
+
+const FlowerContainer = styled.div`
+  > h1 {
+    width: 45px;
+    height: 45px;
+    left: 104px;
+    top: 365px;
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 45px;
+    line-height: 54px;
+    color: #000000;
+  }
+  > p {
+  }
+`;
+
+const FlowerWrapper = styled.div`
+  position: absolute;
+  left: 70px;
+  width: 250px;
+  height: 170px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px;
+`;
 
 const Wrapper = styled.div`
   /* display: flex;

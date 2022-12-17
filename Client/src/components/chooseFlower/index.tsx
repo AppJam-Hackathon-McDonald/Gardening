@@ -15,7 +15,7 @@ function ChooseFlower() {
         골라주세요
       </Title>
       <ButtonContainer>
-        {arr.map((value) => (
+        {arr.map((value: any) => (
           <Button
             icon={value[1].icon}
             mean={value[1].mean}

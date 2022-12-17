@@ -74,6 +74,7 @@ router.post("/garden/:id/writer/letter", async (req, res) => {
       flowerType: req.body.letters[0].flowerType,
       context: req.body.letters[0].context,
     });
+    console.log(req.body.letters[0].whoFrom);
     await garden.save();
     res.json({ garden });
   } catch (e) {

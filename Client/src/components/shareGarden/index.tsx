@@ -8,27 +8,47 @@ import {
   inputPassword,
   shareGardenInfo,
 } from "../../../utils/request";
+import { nametoflower } from "../../assets/constants/flower";
 import { SangChew, LeftArrow, RightArrow } from "../../assets/images";
 import PassSlide from "../passSlide";
+import Read from "../read";
 
 export default function GardenSharePage() {
   const [toggle, setToggle] = useState(false);
   const [name, setName] = useState("");
+  const [letters, setLetter] = useState([]);
   const id = location.pathname.slice(8, 32);
-  const { data, isLoading } = useQuery(["getUserData"], () =>
-    shareGardenInfo(id)
+  const { data, isLoading, refetch } = useQuery(
+    ["getUserData"],
+    () => shareGardenInfo(id),
+    {
+      refetchOnWindowFocus: true,
+      staleTime: 0,
+      cacheTime: 0,
+      refetchInterval: 0,
+    }
   );
   const navigate = useNavigate();
+  const [curData, setCurData] = useState({
+    flower: "",
+    name: "",
+    context: "",
+  });
 
   useEffect(() => {
     if (data) {
       setName(data.userName);
+      setLetter(data.letters);
       console.log(data.letters);
     }
   }, [isLoading]);
+
+  useEffect(() => {
+    refetch();
+  }, [data]);
   return (
     <>
-      <PassSlide setToggle={setToggle} toggle={toggle} />
+      {toggle && <PassSlide setToggle={setToggle} toggle={toggle} />}
       <Wrapper>
         <Title>
           <HighlightsText>{name}</HighlightsText>
@@ -36,11 +56,25 @@ export default function GardenSharePage() {
           정원
         </Title>
         <Garden>
-          <Arrow src={LeftArrow} />
+          <FlowerWrapper>
+            {letters.map((value) => (
+              <Flower
+                onClick={() => {
+                  setToggle(true);
+                  setCurData({
+                    context: value.context,
+                    flower: value.flowerType,
+                    name: value.whoFrom,
+                  });
+                }}
+                context={value.context}
+                flower={nametoflower[value.flowerType]}
+                from={value.whoFrom}
+              />
+            ))}
+          </FlowerWrapper>
           <GardenImg src={SangChew} />
-          <Arrow src={RightArrow} />
         </Garden>
-        <PageNums>2/3</PageNums>
 
         <LinkBtn onClick={() => navigate(`write`)}>정원 꾸며주기</LinkBtn>
         <LinkText onClick={() => setToggle(true)}>내 정원 보러가기</LinkText>
@@ -48,6 +82,51 @@ export default function GardenSharePage() {
     </>
   );
 }
+
+interface FlowerProps {
+  from: string;
+  flower: string;
+  context: string;
+  onClick: () => void;
+  canClick?: boolean;
+}
+
+function Flower({ canClick = false, ...props }: FlowerProps) {
+  return (
+    <FlowerContainer onClick={canClick && props.onClick}>
+      <h1>{props.flower}</h1>
+      <p>{props.from}</p>
+    </FlowerContainer>
+  );
+}
+
+const FlowerContainer = styled.div`
+  > h1 {
+    width: 45px;
+    height: 45px;
+    left: 104px;
+    top: 365px;
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 45px;
+    line-height: 54px;
+    color: #000000;
+  }
+  > p {
+  }
+`;
+
+const FlowerWrapper = styled.div`
+  position: absolute;
+  left: 70px;
+  width: 250px;
+  height: 170px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px;
+`;
 
 const Wrapper = styled.div`
   /* display: flex;

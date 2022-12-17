@@ -40,15 +40,9 @@ export const writeLetter = async (id: string, props: LetterProps) => {
   const response = await instance.post(`/garden/${id}/writer/letter`, {
     letters: [
       {
-        whoFrom: {
-          type: props.from,
-        },
-        flowerType: {
-          type: props.flower,
-        },
-        context: {
-          type: props.context,
-        },
+        whoFrom: props.from,
+        flowerType: props.flower,
+        context: props.context,
       },
     ],
   });
