@@ -6,10 +6,27 @@ const path = require("path");
 require("dotenv").config();
 const router = express.Router();
 
-router.get("/hello", async (req, res) => {
-  const json = await Garden.find();
+router.post("/register", async (req, res) => {
+  const garden = new Garden({
+    userName: req.body.userName,
+    password: req.body.password,
+    letters: [],
+  });
+  try {
+    await garden.save();
+    const id = mongoose.Types.ObjectId(garden.id);
+    res.json({
+      result: {
+        id,
+      },
+    });
+  } catch (e) {
+    console.log(e);
+  }
+});
 
-  res.json(json);
+router.get("/:id", async (req, res) => {
+  //
 });
 
 router.get("*", (req, res) => {
