@@ -21,7 +21,7 @@ function App() {
             <Routes>
               <Route path="/" element={<MainPage />} />
               <Route path="/signup" element={<SignUpPage />} />
-              <Route path="/garden" element={<GardenPage />} />
+              <Route path="/garden/:id" element={<GardenPage />} />
             </Routes>
           </Background>
         </BrowserRouter>
