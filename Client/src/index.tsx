@@ -37,6 +37,8 @@ const Background = styled.div`
   width: 395px;
   height: 852px;
   background-color: #dfd3c3;
+  position: relative;
+  overflow: hidden;
 `;
 
 ReactDOM.render(<App />, document.getElementById("root"));
