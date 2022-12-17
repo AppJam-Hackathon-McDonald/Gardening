@@ -3,7 +3,6 @@ const axios = require("axios");
 const Garden = require("../models/garden");
 const mongoose = require("mongoose");
 const path = require("path");
-const { route } = require("../server");
 require("dotenv").config();
 const router = express.Router();
 
@@ -27,8 +26,17 @@ router.post("/register", async (req, res) => {
 });
 
 router.get("/garden/:id", async (req, res) => {
-  const id = mongoose.Types.ObjectId(req.params.id);
-  console.log();
+  const _id = mongoose.Types.ObjectId(req.params.id);
+  try {
+    const garden = await Garden.findOne({ _id });
+    const result = {
+      userName: garden.userName,
+      letters: garden.letters,
+    };
+    res.json({ result });
+  } catch (e) {
+    console.log(e);
+  }
 });
 
 router.get("/:id", async (req, res) => {
