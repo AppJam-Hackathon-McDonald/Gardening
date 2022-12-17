@@ -7,7 +7,7 @@ import { QueryClientProvider, QueryClient } from "react-query";
 import { RecoilRoot, useRecoilState } from "recoil";
 import MainPage from "./components/main";
 import SignUpPage from "./components/signup";
-import GardenOwnerPage from "./components/gardenOwner";
+import GardenOwnerPage from "./components/garden/shareGarden";
 import GardenSharePage from "./components/gardenOwner";
 
 function App() {
@@ -20,10 +20,10 @@ function App() {
         <BrowserRouter>
           <Background>
             <Routes>
-              <Route path="" element={<MainPage />} />
-              <Route path="signup" element={<SignUpPage />} />
-              <Route path="garden/:id" element={<GardenSharePage />} />
-              <Route path="garden/:id/owner" element={<GardenOwnerPage />} />
+              <Route path="/" element={<MainPage />} />
+              <Route path="/signup" element={<SignUpPage />} />
+              <Route path="/garden/:id/owner" element={<GardenOwnerPage />} />
+              <Route path="/garden/:id" element={<GardenSharePage />} />
             </Routes>
           </Background>
         </BrowserRouter>

@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { Green, Black, Gray } from "../../../styles/theme";
-import { SangChew } from "../../assets/images";
+import { Green, Black, Gray } from "../../../../styles/theme";
+import { SangChew, LeftArrow, RightArrow } from "../../../assets/images";
 
 export default function GardenOwnerPage() {
   return (
@@ -10,7 +10,12 @@ export default function GardenOwnerPage() {
         님의 <br />
         정원
       </Title>
-      <Garden src={SangChew} />
+      <Garden>
+        <Arrow src={LeftArrow} />
+        <GardenImg src={SangChew} />
+        <Arrow src={RightArrow} />
+      </Garden>
+      <PageNums>2/3</PageNums>
       <LinkText>
         친구들에게 링크를 공유하고 편지를 <br />
         써달라고 요청하세요!
@@ -40,10 +45,18 @@ const Title = styled.div`
 const HighlightsText = styled.span`
   color: ${Green};
 `;
-const Garden = styled.img`
+const Garden = styled.div`
   margin-top: 279px;
+  display: flex;
+  align-items: center;
+`;
+const GardenImg = styled.img`
   width: 294px;
   height: 294px;
+`;
+const Arrow = styled.img`
+  width: 42px;
+  height: 42px;
 `;
 const LinkText = styled.span`
   color: ${Gray};
@@ -62,4 +75,9 @@ const LinkBtn = styled.button`
   font-weight: 700;
   font-size: 25px;
   margin-top: 34px;
+`;
+const PageNums = styled.span`
+  font-weight: 700;
+  font-size: 20px;
+  color: ${Green};
 `;
