@@ -72,6 +72,26 @@ router.post("/garden/:id/writer/letter", async (req, res) => {
   }
 });
 
+router.post("/gerden/:id/password", async (req, res) => {
+  // find garden userName
+  const _id = mongoose.Types.ObjectId(req.params.id);
+  const password = req.body.password;
+  try {
+    if (req.body.password === password) {
+      const garden = await Garden.findOne({ _id });
+      const result = garden;
+      res.json({ result });
+    } else {
+      const result = {
+        type: "Error",
+      };
+      res.json({ result });
+    }
+  } catch (e) {
+    console.log(e);
+  }
+});
+
 router.get("*", (req, res) => {
   // send all data
   res.sendFile(path.join(__dirname, "../../Client/build/index.html"));

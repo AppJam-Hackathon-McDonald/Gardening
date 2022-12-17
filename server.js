@@ -10,7 +10,7 @@ require("./db/mongoose");
 const PORT = process.env.PORT || 8080;
 
 // view setting
-app.use(express.static(path.join(__dirname, "./Client/build")));
+app.use(express.static(path.join(__dirname, "Client/build")));
 
 app.use(cookieParser());
 app.use(express.json());
