@@ -1,10 +1,25 @@
 import { useEffect, useRef, useState } from "react";
+import { useMutation } from "react-query";
 import styled, { keyframes } from "styled-components";
+import { inputPassword } from "../../../utils/request";
 
-function PassSlide() {
-  const [toggle, setToggle] = useState(true);
+interface Props {
+  toggle: boolean;
+  setToggle: any;
+}
+
+function PassSlide({ toggle, setToggle }: Props) {
   const Ref = useRef(null);
-  const [number, setNumber] = useState("01");
+  const [number, setNumber] = useState("0");
+  const id = location.pathname.slice(8, 32);
+  const { mutate, data, isLoading } = useMutation(["InputPassword"], () =>
+    inputPassword(id, number.slice(1, 5))
+  );
+
+  useEffect(() => {
+    console.log(data);
+  }, [isLoading]);
+
   useEffect(() => {
     if (Ref.current) {
       Ref.current.value = "0";
@@ -48,8 +63,8 @@ function PassSlide() {
           <div>{number[3]}</div>
           <div>{number[4]}</div>
         </InputWrapper>
-        <CancelButton>취소</CancelButton>
-        <ConfirmButton>확인</ConfirmButton>
+        <CancelButton onClick={() => setToggle(false)}>취소</CancelButton>
+        <ConfirmButton onClick={() => mutate()}>확인</ConfirmButton>
       </SlideWrapper>
     </Background>
   );

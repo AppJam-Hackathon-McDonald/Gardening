@@ -1,7 +1,34 @@
+import { ChangeEvent, useEffect, useState } from "react";
+import { useMutation, useQuery } from "react-query";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { register } from "../../../utils/request";
 import { Img_Logo } from "../../assets/images";
 
 function SignUpPage() {
+  const [data, setData] = useState({
+    name: "",
+    password: "",
+  });
+  const {
+    mutate,
+    data: id,
+    isLoading,
+  } = useMutation(["signup"], () =>
+    register({ password: data.password, userName: data.name })
+  );
+  const navigate = useNavigate();
+
+  const onClick = () => {
+    mutate();
+  };
+
+  useEffect(() => {
+    if (id) {
+      navigate(`/garden/${id}/owner`);
+    }
+  }, [isLoading]);
+
   return (
     <TotalWrapper>
       <TitleWrapper>
@@ -13,9 +40,27 @@ function SignUpPage() {
           무엇인가요?
         </h1>
       </TitleWrapper>
-      <Input title="이름" placeholder="이름을 입력해주세요" />
-      <Input title="비밀번호" placeholder="4자리 숫자로 입력해주세요" />
-      <Button>만들기</Button>
+      <Input
+        title="이름"
+        placeholder="이름을 입력해주세요"
+        value={data.name}
+        onChange={(e) => {
+          setData({ ...data, name: e.currentTarget.value });
+        }}
+      />
+      <Input
+        title="비밀번호"
+        placeholder="4자리 숫자로 입력해주세요"
+        value={data.password}
+        onChange={(e) => {
+          const regType1 = /^[0-9]*$/;
+          const num = e.currentTarget.value;
+          if (regType1.test(num) && num.length < 5) {
+            setData({ ...data, password: num });
+          }
+        }}
+      />
+      <Button onClick={onClick}>만들기</Button>
     </TotalWrapper>
   );
 }
@@ -23,13 +68,20 @@ function SignUpPage() {
 interface InputProps {
   title: string;
   placeholder: string;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  value: string;
 }
 
-function Input({ title, placeholder }: InputProps) {
+function Input({ title, placeholder, onChange, value }: InputProps) {
   return (
     <InputWrapper>
       <p>{title}</p>
-      <input type="text" placeholder={placeholder} />
+      <input
+        value={value}
+        type="text"
+        placeholder={placeholder}
+        onChange={onChange}
+      />
     </InputWrapper>
   );
 }
@@ -61,6 +113,9 @@ const InputWrapper = styled.div`
     font-weight: 300;
     font-size: 20px;
     line-height: 23px;
+    :focus::placeholder {
+      opacity: 0;
+    }
     ::placeholder {
       color: rgba(98, 98, 98, 0.3);
     }

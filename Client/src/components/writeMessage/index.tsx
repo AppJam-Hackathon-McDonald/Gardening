@@ -1,7 +1,26 @@
+import { useState } from "react";
+import { useMutation } from "react-query";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { writeLetter } from "../../../utils/request";
 import { Img_Back } from "../../assets/images";
 
 function WriteMessage() {
+  const data = JSON.parse(localStorage.getItem("flower"));
+  const id = location.pathname.slice(8, 32);
+  const navigate = useNavigate();
+
+  const [context, setContext] = useState({
+    from: "",
+    value: "",
+  });
+  const { mutate, isLoading } = useMutation(["writeletter"], () =>
+    writeLetter(id, {
+      context: context.value,
+      flower: data.name,
+      from: context.from,
+    })
+  );
   return (
     <>
       <Title>
@@ -10,13 +29,33 @@ function WriteMessage() {
         입력해주세요
       </Title>
       <InputWrapper>
-        <Flower>🌻</Flower>
+        <Flower>{data?.icon}</Flower>
         <p>from</p>
-        <input type="text" placeholder="닉네임" />
+        <input
+          type="text"
+          placeholder="닉네임"
+          value={context.from}
+          onChange={(e) =>
+            setContext({ ...context, from: e.currentTarget.value })
+          }
+        />
         <div />
-        <textarea placeholder="메세지를 입력해주세요"></textarea>
+        <textarea
+          placeholder="메세지를 입력해주세요"
+          value={context.value}
+          onChange={(e) =>
+            setContext({ ...context, value: e.currentTarget.value })
+          }
+        ></textarea>
       </InputWrapper>
-      <ConfirmButton>확인</ConfirmButton>
+      <ConfirmButton
+        onClick={() => {
+          mutate();
+          navigate(`/garden/${id}`);
+        }}
+      >
+        확인
+      </ConfirmButton>
       <BackButton src={Img_Back} />
     </>
   );
