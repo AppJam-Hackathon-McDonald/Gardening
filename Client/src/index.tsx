@@ -7,6 +7,7 @@ import { QueryClientProvider, QueryClient } from "react-query";
 import { RecoilRoot, useRecoilState } from "recoil";
 import MainPage from "./components/main";
 import SignUpPage from "./components/signup";
+import GardenPage from "./components/garden";
 
 function App() {
   const queryClient = new QueryClient();
@@ -20,6 +21,7 @@ function App() {
             <Routes>
               <Route path="/" element={<MainPage />} />
               <Route path="/signup" element={<SignUpPage />} />
+              <Route path="/garden" element={<GardenPage />} />
             </Routes>
           </Background>
         </BrowserRouter>
