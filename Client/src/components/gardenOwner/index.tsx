@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Green, Black, Gray } from "../../../styles/theme";
 import { SangChew } from "../../assets/images";
 
-export default function GardenOwnerPage() {
+export default function GardenSharePage() {
   return (
     <Wrapper>
       <Title>
